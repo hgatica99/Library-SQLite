@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit{% endblock %}
+
+{% block content %}
+    <p>Book Name: {{book.title}}</p>
+    <p>Current Rating: {{book.rating}}</p>
+
+    <form action="/edit/{{ book.id }}" method="POST">
+        <label>Rating</label>
+        <input type="number" step="0.01" name="rating">
+        <button type="submit">Change Rating</button>
+    </form>
+{% endblock %}
