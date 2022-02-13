@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 URI = 'sqlite:///new-books-collection.db'
 
+##CREATE FLASK APP
 app = Flask(__name__)
 
 ##CREATE DATABASE
@@ -22,8 +23,6 @@ class Book(db.Model):
     def __repr__(self):
         return f'<Book> {self.title}'
 
-
-
 if not os.path.isfile(URI):
     db.create_all()
 
@@ -33,7 +32,6 @@ all_books = db.session.query(Book).all()
 def home():
     all_books = db.session.query(Book).all()
     return render_template('index.html', books=all_books)
-
 
 @app.route("/add", methods=["GET", "POST"])
 def add():
@@ -51,6 +49,7 @@ def add():
 
     return render_template('add.html')
 
+##CREATE EDIT PAGE
 @app.route("/edit/<int:id>", methods=["GET", "POST"])
 def edit(id):
     if request.method == 'POST':
@@ -66,6 +65,7 @@ def edit(id):
         all_books = db.session.query(Book).all()
         return render_template('edit.html', book=all_books[id-1])
 
+##CREATE DELETE FUNCTION
 @app.route("/delete/<int:id>")
 def delete_book(id):
     
